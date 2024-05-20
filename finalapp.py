@@ -7,12 +7,16 @@ import chainlit as cl
 from langchain_groq import ChatGroq
 import json
 
+from dotenv import load_dotenv
+load_dotenv()
+groq_api_key = os.getenv("GROQ_API_KEY")
+
 template = """ Question: {question}
 
 Answer: Let's think step by step."""
 
 prompt = PromptTemplate(template=template, input_variables=["question"])
-llm = ChatGroq(groq_api_key = "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")
+llm = ChatGroq(groq_api_key = groq_api_key)
 
 # Instantiate the chain for that user session
 llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True)
